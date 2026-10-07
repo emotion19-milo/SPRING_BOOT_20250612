@@ -8,8 +8,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+
 @Configuration // 스프링설정클래스등록
 @EnableWebSecurity // 스프링시큐리티활성화
+@EnableMethodSecurity
 public class SecurityConfig {
     @Bean // 비밀번호암호화객체등록(BCrypt 해시)
     public PasswordEncoder passwordEncoder() {
@@ -22,6 +25,7 @@ public class SecurityConfig {
             .requestMatchers("/", "/hello", "/detailed_web.html",
                             "/login", "/signup", "/error").permitAll()
             .requestMatchers("/css/**", "/js/**", "/images/**", "/fonts/**").permitAll()
+            .requestMatchers("/admin/**").hasRole("ADMIN")
             .anyRequest().authenticated())
         .formLogin(form -> form // 2. 폼로그인설정(인증)
             .loginPage("/login")
