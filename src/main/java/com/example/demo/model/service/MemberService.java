@@ -24,7 +24,7 @@ public class MemberService implements UserDetailsService {
     private MemberRepository memberRepository;
     @Autowired // SecurityConfig 에 등록한 BCryptPasswordEncoder 주입
     private PasswordEncoder passwordEncoder;
-     private boolean isBlank(String value) { return value == null || value.isBlank(); } // 클래스 아래쪽
+    private boolean isBlank(String value) { return value == null || value.isBlank(); } // 클래스 아래쪽
 
     public Member signup(MemberForm form) { // 회원가입
         if (isBlank(form.getUsername()) || isBlank(form.getPassword()) || isBlank(form.getName())) {

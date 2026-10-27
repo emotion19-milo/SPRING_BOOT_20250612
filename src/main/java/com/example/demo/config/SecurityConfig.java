@@ -29,7 +29,7 @@ public class SecurityConfig {
             .requestMatchers("/css/**", "/js/**", "/images/**", "/fonts/**").permitAll()
             //.requestMatchers("/admin/**").hasRole("ADMIN")
             .requestMatchers("/admin/**",
-                "/api/admin/**")
+                            "/api/admin/**")
                 .hasRole("ADMIN")
             .requestMatchers("/api/hello").permitAll()
             .anyRequest().authenticated())
@@ -50,6 +50,7 @@ public class SecurityConfig {
                 .exceptionHandling(ex -> ex.defaultAuthenticationEntryPointFor( // 로그인 안 한 API 요청 :
                     new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED),           // 로그인 화면(302) 대신 401
                     request -> request.getRequestURI().startsWith("/api/")));
+        
         return http.build();
     }
 }
